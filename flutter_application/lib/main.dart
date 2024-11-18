@@ -38,9 +38,9 @@ class MyTaskHandler extends TaskHandler {
     FlutterForegroundTask.sendDataToMain(_count);
   }
 
+  String baseurl =
+      'http://${Platform.isAndroid ? '10.0.2.2' : '127.0.0.1'}:5000/query';
   Future<void> _postDataToApi() async {
-    String baseurl =
-        'http://${Platform.isAndroid ? '10.0.2.2' : '127.0.0.1'}:5000/query';
     try {
       final response = await http.post(
         Uri.parse(baseurl),
@@ -65,8 +65,7 @@ class MyTaskHandler extends TaskHandler {
 
   Future<void> _getDataFromApi() async {
     try {
-      final response =
-          await http.get(Uri.parse('http://127.0.0.1:5000/sample'));
+      final response = await http.get(Uri.parse(baseurl));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
